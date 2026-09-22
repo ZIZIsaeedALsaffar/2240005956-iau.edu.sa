@@ -6,7 +6,11 @@
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
+<<<<<<< HEAD
       <SelectionState runConfigName="GreetingPreview">
+=======
+      <SelectionState runConfigName="MainActivity">
+>>>>>>> f684348 (Complete Lab 2)
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>

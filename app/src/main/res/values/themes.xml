@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<<<<<<< HEAD
     <style name="Theme.CSC402Lab3" parent="android:Theme.Material.Light.NoActionBar" />
+=======
+    <style name="Theme.CSC402Lab2" parent="android:Theme.Material.Light.NoActionBar" />
+>>>>>>> f684348 (Complete Lab 2)
 </resources>

@@ -22,6 +22,10 @@ dependencyResolutionManagement {
     }
 }
 
+<<<<<<< HEAD
 rootProject.name = "CSC402 Lab 3"
+=======
+rootProject.name = "CSC402Lab2"
+>>>>>>> f684348 (Complete Lab 2)
 include(":app")
  

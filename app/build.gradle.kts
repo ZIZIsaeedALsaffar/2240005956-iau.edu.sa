@@ -4,13 +4,21 @@ plugins {
 }
 
 android {
+<<<<<<< HEAD
     namespace = "edu.iau.cshj.csc402.lab1"
+=======
+    namespace = "edu.iau.cshj.csc402.csc402lab2"
+>>>>>>> f684348 (Complete Lab 2)
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
+<<<<<<< HEAD
         applicationId = "edu.iau.cshj.csc402.lab1"
+=======
+        applicationId = "edu.iau.cshj.csc402.csc402lab2"
+>>>>>>> f684348 (Complete Lab 2)
         minSdk = 24
         targetSdk = 37
         versionCode = 1
