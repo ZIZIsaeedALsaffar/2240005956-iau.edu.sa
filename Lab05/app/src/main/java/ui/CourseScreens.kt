@@ -1,5 +1,10 @@
+
 package sa.edu.iau.cshj.lab05.ui
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,12 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
-import android.widget.Toast
-
-
 @Composable
 fun HomeScreen(
     onWebsiteClick: () -> Unit,
@@ -27,13 +26,24 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize().padding(24.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text("CSC Courses", style = MaterialTheme.typography.headlineMedium)
-        Button(onClick = onWebsiteClick) { Text("University website") }
-        Button(onClick = onCallClick) { Text("Call the department") }
-        Button(onClick = onCoursesClick) { Text("Browse courses") }
+
+        Button(onClick = onWebsiteClick) {
+            Text("University website")
+        }
+
+        Button(onClick = onCallClick) {
+            Text("Call the department")
+        }
+
+        Button(onClick = onCoursesClick) {
+            Text("Browse courses")
+        }
     }
 }
 
@@ -48,12 +58,19 @@ fun CourseListScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize().padding(24.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text("Courses", style = MaterialTheme.typography.headlineMedium)
+
         uiState.courses.forEach { code ->
-            Button(onClick = { onCourseClick(code) }) { Text(code) }
+            Button(onClick = {
+                onCourseClick(code)
+            }) {
+                Text(code)
+            }
         }
     }
 }
@@ -61,7 +78,9 @@ fun CourseListScreen(
 @Composable
 fun CourseListRoute(onCourseClick: (String) -> Unit) {
     CourseListScreen(
-        uiState = CourseListUiState(listOf("CSC 402", "CSC 231", "CSC 311")),
+        uiState = CourseListUiState(
+            listOf("CSC 402", "CSC 231", "CSC 311")
+        ),
         onCourseClick = onCourseClick
     )
 }
@@ -78,21 +97,56 @@ fun CourseDetailScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize().padding(24.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(uiState.code, style = MaterialTheme.typography.headlineMedium)
-        Button(onClick = onShareClick) { Text("Share") }
-        OutlinedButton(onClick = onBackClick) { Text("Back") }
+        Text(
+            uiState.code,
+            style = MaterialTheme.typography.headlineMedium
+        )
+
+        Button(onClick = onShareClick) {
+            Text("Share")
+        }
+
+        OutlinedButton(onClick = onBackClick) {
+            Text("Back")
+        }
     }
 }
 
 @Composable
-fun CourseDetailRoute(code: String, onBackClick: () -> Unit) {
+fun CourseDetailRoute(
+    code: String,
+    onBackClick: () -> Unit
+) {
     val context = LocalContext.current
+
     CourseDetailScreen(
         uiState = CourseDetailUiState(code = code),
-        onShareClick = {  },
+        onShareClick = {
+            val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, "Course: $code")
+            }
+
+            val shareIntent = Intent.createChooser(
+                sendIntent,
+                "Share course"
+            )
+
+            try {
+                context.startActivity(shareIntent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                    context,
+                    "No app can share this",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        },
         onBackClick = onBackClick
     )
 }

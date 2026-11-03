@@ -43,7 +43,8 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable("detail/{code}") { backStackEntry ->
-                        val code = backStackEntry.arguments?.getString("code") ?: ""
+                        val code =
+                            backStackEntry.arguments?.getString("code") ?: ""
 
                         CourseDetailRoute(
                             code = code,
